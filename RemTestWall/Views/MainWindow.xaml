@@ -1,0 +1,105 @@
+﻿<Window x:Class="RemTestWall.Views.MainWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RemTestWall.Views"
+             mc:Ignorable="d" 
+        Title="RemTestWall"
+        Topmost="False"
+        MinHeight="400"
+        Height="400"
+        MinWidth="500"
+        Width="500"
+        ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen">
+    <Border Margin="15,10,15,10
+            ">
+        <Grid>
+            <!-- Determine the lines for Grid -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Line 0: LevelsMax -->
+                <RowDefinition Height="Auto"/>
+                <!-- Line 1: LevelsMin -->
+                <RowDefinition Height="Auto"/>
+                <!-- Line 2: Search Area -->
+                <RowDefinition Height="*"/>
+                <!-- Line 3: DataGrid -->
+                <RowDefinition Height="Auto"/>
+                <!-- Line 4: Counter and search button -->
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                <TextBlock Text="Level Max:" Margin="0,0,0,5"/>
+                <ComboBox x:Name="LevelMax"
+                          ItemsSource="{Binding LevelsMax}"
+                          DisplayMemberPath="Name"
+                          SelectedItem="{Binding SelectedLevelMax, Mode=TwoWay}"
+                          Width="Auto"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Margin="0,0,0,10">
+                <TextBlock Text="Level Min:" Margin="0,0,0,5"/>
+                <ComboBox x:Name="LevelMin"
+                          ItemsSource="{Binding LevelsMin}"
+                          DisplayMemberPath="Name"
+                          SelectedItem="{Binding SelectedLevelMin, Mode=TwoWay}"
+                          Width="Auto"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Margin="0,0,0,10">
+                <TextBlock Text="Search Area:" Margin="0,0,0,5"/>
+                <ComboBox x:Name="SearchArea"
+                          ItemsSource="{Binding LinkedFiles}"
+                          DisplayMemberPath="FileName"
+                          SelectedItem="{Binding SelectedLinkedFile, Mode=TwoWay}"
+                          Width="Auto"/>
+            </StackPanel>
+            <DataGrid Grid.Row="3"
+          ItemsSource="{Binding Walls}"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          IsReadOnly="True"
+          HeadersVisibility="Column"
+          ScrollViewer.VerticalScrollBarVisibility="Auto"
+          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+          Margin="10">
+                <DataGrid.Columns>
+                    <!-- Column ID -->
+                    <DataGridTextColumn Header="ID" Binding="{Binding WallId}" Width="Auto" />
+                    <!-- Column ModelName -->
+                    <DataGridTextColumn Header="Model" Binding="{Binding ModelName}" Width="*" />
+                    <!-- Column Category -->
+                    <DataGridTextColumn Header="Category" Binding="{Binding CategoryName}" Width="Auto" />
+                    <!-- Column with a button "Choose" -->
+                    <DataGridTemplateColumn Header="Actions" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Choose"
+                            Command="{Binding DataContext.ChooseWallCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                            CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <!-- Premises search button -->
+            <Grid Grid.Row="4" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" 
+                           Text="{Binding FoundWallCount, StringFormat='Найдено стен: {0}'}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                <Button Grid.Column="4"
+                    Content="Get Walls"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding GetWallsCommand}" />
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

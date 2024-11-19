@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>RemTestWall</Name>
+    <Assembly>EEPPlagin\RemTestWall.dll</Assembly>
+    <AddInId>19f591ac-00fe-491a-96d9-6f65869279d3</AddInId>
+    <FullClassName>RemTestWall.App</FullClassName>
+    <VendorId>Pidlazhevich</VendorId>
+    <VendorDescription>Pidlazhevich</VendorDescription>
+  </AddIn>
+</RevitAddIns>
