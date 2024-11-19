@@ -64,7 +64,15 @@
           Margin="10">
                 <DataGrid.Columns>
                     <!-- Column ID -->
-                    <DataGridTextColumn Header="ID" Binding="{Binding WallId}" Width="Auto" />
+                    <DataGridTextColumn Header="ID" Binding="{Binding WallId}" Width="Auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="NoWrap" />
+                                <Setter Property="Text" Value="{Binding WallId}" />
+                                <Setter Property="IsHitTestVisible" Value="True" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                     <!-- Column ModelName -->
                     <DataGridTextColumn Header="Model" Binding="{Binding ModelName}" Width="*" />
                     <!-- Column Category -->
